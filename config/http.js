@@ -8,7 +8,7 @@
  * For more information on configuration, check out:
  * http://sailsjs.org/#!/documentation/reference/sails.config/sails.config.http.html
  */
-
+var expressJwt = require('express-jwt');
 module.exports.http = {
 
   /****************************************************************************
@@ -78,6 +78,20 @@ module.exports.http = {
     // bodyParser: require('skipper')({strict: true})
 
   },
+
+  customMiddleware: function(app){
+    app.use(expressJwt({secret: 'secret'}).unless({path: [
+        '/',
+        '/admin/signup',
+        '/admin/login'
+    ]}));
+    app.use(function(req, res, next) {
+       res.header("Access-Control-Allow-Origin", "*");
+       res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+       res.header("Access-Control-Allow-Methods", "GET, PUT, POST");
+       next();
+    });
+  }
 
   /***************************************************************************
   *                                                                          *

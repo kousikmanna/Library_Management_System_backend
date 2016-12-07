@@ -34,8 +34,16 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  }
+  },
 
+  'POST /admin/signup'                  : 'AdminController.signUp',
+  'POST /admin/login'                   : 'AdminController.login',
+  'POST /book/add'                      : 'BookController.addBook',
+  'GET /book/list'                      : 'BookController.getBook',
+  'PUT /book/update'                    : 'BookController.updateBook',
+  'PUT /book/delete'                    : 'BookController.delete',
+  'PUT /book/assign'                    : 'BookController.assignBook',
+  
   /***************************************************************************
   *                                                                          *
   * Custom routes here...                                                    *
