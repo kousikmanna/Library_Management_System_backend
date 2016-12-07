@@ -93,7 +93,6 @@ module.exports = {
 };
 
 function updateTransaction(bookId, userId, input, cb){
-	
 	Transaction.update({book: bookId, user: userId}, input).exec(function(err, updated){
 		if(!err && updated){
 			cb(null, updated[0]);
