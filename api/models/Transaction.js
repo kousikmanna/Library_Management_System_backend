@@ -29,8 +29,8 @@ module.exports = {
     },
 
     assignBook: function(book, user, transactionType, dueDate, cb){
-
     	if(transactionType == 'return'){
+    		
     		updateTransaction(book.id, user.id, {transactionType: transactionType}, function(err, updated){
     			if(!err && updated){
     				Book.update({id: book.id},{availability: book.availability, user: user.id, transactionType: transactionType}).exec(function(err, bookUpdated){
