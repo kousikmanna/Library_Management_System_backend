@@ -30,7 +30,7 @@ module.exports = {
 
     assignBook: function(book, user, transactionType, dueDate, cb){
     	if(transactionType == 'return'){
-    		
+
     		updateTransaction(book.id, user.id, {transactionType: transactionType}, function(err, updated){
     			if(!err && updated){
     				Book.update({id: book.id},{availability: book.availability, user: user.id, transactionType: transactionType}).exec(function(err, bookUpdated){
@@ -45,6 +45,7 @@ module.exports = {
     			}
     		})
     	}else{
+
     		User.findOne({email: user.email}).exec(function(err, foundUser){
 	    		if(!err && foundUser){
 	    			createTransaction({user: foundUser.id, book: book.id, dueDate: dueDate, transactionType: transactionType}, function(err, created){
@@ -62,6 +63,7 @@ module.exports = {
 	    				}
 	    			});
 	    		}else if(!err && !foundUser){
+
 	    			User.createUser(user, function(err, created){
 	    				if(!err && created){
 	    					createTransaction({user: created.id, book: book.id, dueDate: dueDate, transactionType: transactionType}, function(err, created){
@@ -91,6 +93,7 @@ module.exports = {
 };
 
 function updateTransaction(bookId, userId, input, cb){
+	
 	Transaction.update({book: bookId, user: userId}, input).exec(function(err, updated){
 		if(!err && updated){
 			cb(null, updated[0]);
